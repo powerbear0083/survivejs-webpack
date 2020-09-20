@@ -1,24 +1,26 @@
 const path = require('path');
-const {
-    MiniHtmlWebpackPlugin,
-} = require("mini-html-webpack-plugin");
+const { merge } = require('webpack-merge');
+const parts = require("./webpack.parts");
 
-module.exports = {
-    entry: path.resolve(__dirname, 'src'),
-    output: {
-        filename: 'main.js',
-        path: path.resolve(__dirname, 'dist'),
+const commonConfig = merge([
+    {
+        output: {
+            filename: 'main.js',
+            path: path.resolve(__dirname, 'dist'),
+        }
     },
-    devServer: {
-        contentBase: path.join(__dirname, 'dist'),
-        compress: true,
-        port: 9000
-    },
-    plugins: [
-        new MiniHtmlWebpackPlugin({
-            context: {
-                title: "Webpack demo",
-            },
-        }),
-    ],
-};
+    parts.page({ title: "Webpack demo" }),
+]);
+const productionConfig = merge([]);
+const developmentConfig = merge([parts.devServer()]);
+
+module.exports = (mode) => {
+    const pages = [
+      parts.page({
+        entry: path.resolve(__dirname, 'src'),
+      })
+    ];
+    const config = mode === "production" ? productionConfig : developmentConfig;
+  
+    return merge([commonConfig, config, { mode }].concat(pages));
+  };
