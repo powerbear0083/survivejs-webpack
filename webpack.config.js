@@ -4,12 +4,16 @@ const parts = require("./webpack.parts");
 
 const commonConfig = merge([
     {
+        entry: {
+            app: path.resolve(__dirname, 'src'),
+        },   
         output: {
             filename: 'main.js',
             path: path.resolve(__dirname, 'dist'),
         }
     },
-    parts.page({ title: "Webpack demo" }),
+    parts.loadCSS(),
+    parts.page({ title: "Webpack demo" })
 ]);
 const productionConfig = merge([]);
 const developmentConfig = merge([parts.devServer()]);
