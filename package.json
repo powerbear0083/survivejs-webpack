@@ -20,6 +20,11 @@
   },
   "homepage": "https://github.com/powerbear0083/survivejs-webpack#readme",
   "devDependencies": {
+    "autoprefixer": "^10.0.1",
+    "node-sass": "^4.14.1",
+    "postcss": "^8.1.0",
+    "postcss-loader": "^4.0.2",
+    "sass-loader": "^10.0.2",
     "webpack": "^4.44.2",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"

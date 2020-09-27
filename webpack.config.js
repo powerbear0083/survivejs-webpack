@@ -2,14 +2,18 @@ const path = require('path');
 const { merge } = require('webpack-merge');
 const parts = require("./webpack.parts");
 
+const PATH = {
+    ENTRY: path.resolve(__dirname, 'src'),
+    BUILD: path.resolve(__dirname, 'dist')
+}
 const commonConfig = merge([
     {
         entry: {
-            app: path.resolve(__dirname, 'src'),
+            main: PATH.ENTRY,
         },   
         output: {
-            filename: 'main.js',
-            path: path.resolve(__dirname, 'dist'),
+            filename: '[name].js',
+            path: PATH.BUILD,
         }
     },
     parts.loadCSS(),

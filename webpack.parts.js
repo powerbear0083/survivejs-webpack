@@ -10,18 +10,38 @@ exports.devServer = ({ host, port } = {}) => ({
     }
 });
 
-exports.loadCSS = ({include, exclude} = {}) => ({
+exports.loadCSS = ({ include, exclude } = {}) => ({
     module: {
-      rules: [
-        {
-          test: /\.css$/,
-          include,
-          exclude,
-          use: ['style-loader', 'css-loader']
-        }
-      ]
+        rules: [
+            {
+                test: /\.s[ac]ss$/i,
+                include,
+                exclude,
+                use: [
+                    'style-loader',
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            sourceMap: true,
+                        },
+                    },
+                    {
+                        loader: 'postcss-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true,
+                        },
+                    },
+                ]
+            }
+        ]
     }
-  })
+})
 
 exports.page = ({ title }) => ({
     plugins: [
