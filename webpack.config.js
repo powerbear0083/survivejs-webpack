@@ -13,14 +13,24 @@ const commonConfig = merge([
         },   
         output: {
             filename: '[name].js',
-            path: PATH.BUILD,
+            path: PATH.BUILD
         }
     },
     parts.loadCSS(),
     parts.page({ title: "Webpack demo" })
 ]);
-const productionConfig = merge([]);
-const developmentConfig = merge([parts.devServer()]);
+const productionConfig = merge(
+    [
+        parts.extractCSS({
+            use: ['css-loader', parts.autoprefixer(), 'postcss-loader', 'sass-loader'],
+        })
+    ]
+);
+const developmentConfig = merge(
+    [
+        parts.devServer()
+    ]
+);
 
 module.exports = (mode) => {
     const pages = [
