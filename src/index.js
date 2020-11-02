@@ -1,4 +1,3 @@
-import "./main.sass"
-import components from "./components";
+import component from "./components";
 
-document.body.appendChild(components());
+document.body.appendChild(component());
